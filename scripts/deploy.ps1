@@ -21,7 +21,15 @@ if ($LASTEXITCODE -ne 0) { throw "backend package build failed." }
 Set-Location $ProjectRoot
 
 # 2. Terraform workspace & apply
-terraform -chdir="$TerraformDir" init -input=false
+# New lines:
+$awsAccountId = aws sts get-caller-identity --query Account --output text
+$awsRegion = if ($env:DEFAULT_AWS_REGION) { $env:DEFAULT_AWS_REGION } else { "ap_south_1" }
+terraform init -input=false `
+  -backend-config="bucket=twin-terraform-state-$awsAccountId" `
+  -backend-config="key=$Environment/terraform.tfstate" `
+  -backend-config="region=$awsRegion" `
+  -backend-config="dynamodb_table=twin-terraform-locks" `
+  -backend-config="encrypt=true"
 if ($LASTEXITCODE -ne 0) { throw "terraform init failed." }
 
 $WorkspaceList = & terraform -chdir="$TerraformDir" workspace list
