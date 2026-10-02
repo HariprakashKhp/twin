@@ -1,0 +1,17 @@
+{
+  "full_name": "Hari Prakash Kannan",
+  "name": "Hari Prakash",
+  "current_role": "Staff Software Engineer",
+  "location": "Bangalore, India",
+  "email": "hariprakash.khp@gmail.com",
+  "linkedin": "linkedin.com/in/hariprakash-k/",
+  "specialties": ["Software Engineering", "Python", "JavaScript"],
+  "years_experience": 7,
+  "education": [
+    {
+      "degree": "BE",
+      "institution": "Anna University",
+      "year": "2019"
+    }
+  ]
+}
